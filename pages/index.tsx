@@ -1,40 +1,39 @@
-import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
-import { TextField, Stack, Grid, Button } from '@mui/material'
-import React, { useState, useRef } from 'react'
+import type { NextPage } from "next"
+import React, { useState, useRef } from "react"
+import { Board, Result } from "../src/components"
+import { createAttempt } from "../src/functions"
 
+const testWord: string = "horse"
 
 const Home: NextPage = () => {
-  const first = useRef(null);
-  const [firstValue, setFirstValue] = useState<any>(first)
+  const [currentAttempt, setCurrentAttempt] = useState("")
+  const [attemptNumber, setAttemptNumber] = useState(0)
+  const { attempt, attemptContainer } = createAttempt()
 
-  const second = useRef(null);
-  const third = useRef(null);
-  const fourth = useRef(null);
-  const fifth = useRef(null);
+  // const handleGame = (attempt: string) => {
+  // const createdAttempt = createAttempt()
 
-  const word: string = 'horse'
+  // if (attemptNumber < 6 && currentAttempt != testWord) {
+  //   setCurrentAttempt(attempt)
+  //   setAttemptNumber(attemptNumber + 1)
+  //   return createdAttempt.attemptContainer
+  // }
 
-  const handleWord = () => {
-    setFirstValue(first.current?.value)
-    console.log('word', firstValue)
-  }
+  // if (attemptNumber >= 6 && currentAttempt != testWord) {
+  //   return <Result status="failure" />
+  // }
+
+  // if (currentAttempt == testWord) {
+  //   return <Result status="success" />
+  // }
+  // }
 
   return (
-    <Grid container padding={4} spacing={1}>
-      <Grid item>
-        <Stack direction='row' spacing={1}>
-          <TextField ref={first}></TextField>
-          <TextField ref={second}></TextField>
-          <TextField ref={third}></TextField>
-          <TextField ref={fourth}></TextField>
-          <TextField ref={fifth}></TextField>
-          <Button onClick={handleWord}>Enter</Button>
-        </Stack>
-      </Grid>
-    </Grid>
+    <Board>
+      {attemptContainer}
+      {attempt == testWord && <Result status="success" />}
+    </Board>
   )
 }
 
 export default Home
-
