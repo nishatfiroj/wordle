@@ -5,12 +5,12 @@ import React, { useState, useRef } from "react"
 export const Board = (props: { answer: string }) => {
   const { answer } = props
 
-  let try1 = createAttempt(answer)
-  let try2 = createAttempt(answer)
-  let try3 = createAttempt(answer)
-  let try4 = createAttempt(answer)
-  let try5 = createAttempt(answer)
-  let try6 = createAttempt(answer)
+  let try1 = createAttempt(answer, true)
+  let try2 = createAttempt(answer, false)
+  let try3 = createAttempt(answer, false)
+  let try4 = createAttempt(answer, false)
+  let try5 = createAttempt(answer, false)
+  let try6 = createAttempt(answer, false)
 
   if (
     try1.attempt == answer ||

@@ -11,10 +11,13 @@ const inputStyle = {
   height: "60px",
   fontSize: "30px",
   textAlign: "center" as "center",
+  border: "1px solid white",
+  borderRadius: "4px",
   margin: 2,
+  color: "white",
 }
 
-export const createAttempt = (answer: string): AttemptBase => {
+export const createAttempt = (answer: string, active: boolean): AttemptBase => {
   const first: React.Ref<any> = useRef(null)
   const second: React.Ref<any> = useRef(null)
   const third: React.Ref<any> = useRef(null)
@@ -23,7 +26,7 @@ export const createAttempt = (answer: string): AttemptBase => {
 
   const [attempt, setAttempt] = useState("")
 
-  let colorMap = new Array(5).fill("red")
+  let colorMap: string[] = []
 
   const handleAttempt = (e: any) => {
     e.preventDefault()
@@ -41,15 +44,17 @@ export const createAttempt = (answer: string): AttemptBase => {
       alert("Your input must be 5 alphabetic characters long.")
     } else {
       setAttempt(buildAttempt)
-      evaluateAttempt(e)
+      setTimeout(() => evaluateAttempt(), 100)
       console.log(colorMap)
     }
   }
 
-  const evaluateAttempt = (e: any) => {
+  const evaluateAttempt = () => {
     for (let i = 0; i < attempt.length; i++) {
       if (attempt[i] === answer[i]) {
         colorMap[i] = "green"
+      } else {
+        colorMap[i] = "red"
       }
     }
   }
@@ -68,30 +73,54 @@ export const createAttempt = (answer: string): AttemptBase => {
         <Stack direction="row" spacing={1}>
           <form>
             <input
+              disabled={!active}
               onChange={(e) => handleLetterInput(e)}
-              style={inputStyle}
+              style={{
+                ...inputStyle,
+                ...{ backgroundColor: colorMap[0] || "transparent" },
+              }}
               maxLength={1}
               ref={first}
             ></input>
             <input
+              disabled={!active}
               onChange={(e) => handleLetterInput(e)}
-              style={inputStyle}
+              style={{
+                ...inputStyle,
+                ...{ backgroundColor: colorMap[0] || "transparent" },
+              }}
               maxLength={1}
               ref={second}
             ></input>
             <input
+              disabled={!active}
               onChange={(e) => handleLetterInput(e)}
-              style={inputStyle}
+              style={{
+                ...inputStyle,
+                ...{ backgroundColor: colorMap[0] || "transparent" },
+              }}
               maxLength={1}
               ref={third}
             ></input>
             <input
+              disabled={!active}
               onChange={(e) => handleLetterInput(e)}
-              style={inputStyle}
+              style={{
+                ...inputStyle,
+                ...{ backgroundColor: colorMap[0] || "transparent" },
+              }}
               maxLength={1}
               ref={fourth}
             ></input>
-            <input style={inputStyle} maxLength={1} ref={fifth}></input>
+            <input
+              disabled={!active}
+              style={{
+                ...inputStyle,
+                ...{ backgroundColor: colorMap[0] || "transparent" },
+              }}
+              maxLength={1}
+              ref={fifth}
+            ></input>
             <Button type="submit" onClick={handleAttempt}>
               Enter
             </Button>
